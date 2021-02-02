@@ -1,3 +1,5 @@
 #!/bin/bash
 
-/root/.cargo/bin/cargo run
+ls ~/
+
+#/root/.cargo/bin/cargo run
