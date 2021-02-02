@@ -1,5 +1,5 @@
 #!/bin/bash
 
-1>&2 echo "error test"
+1>&2 tree 
 
 /root/.cargo/bin/cargo run
