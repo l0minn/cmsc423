@@ -2,6 +2,6 @@
 
 cp /autograder/submission/Cargo.lock ./
 cp /autograder/submission/Cargo.toml ./
-cp /autograder/submission/src ./
+cp -r /autograder/submission/src ./
 
 /root/.cargo/bin/cargo run
