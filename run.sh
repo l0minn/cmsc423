@@ -1,9 +1,7 @@
 #!/bin/bash
 
-cd ..
+cp /autograder/submission/Cargo.lock ./
+cp /autograder/submission/Cargo.toml ./
+cp /autograder/submission/src ./
 
-cd ..
-
-1>&2 ls -R
-
-#/root/.cargo/bin/cargo run
+/root/.cargo/bin/cargo run
