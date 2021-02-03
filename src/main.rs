@@ -14,7 +14,7 @@ fn main() {
     let mut genome = Vec::new();
 
     let mut passed_first_newline = false;
-    for c in input.chars() {
+    for c in input.trim().chars() {
         if !passed_first_newline {
             if c == '\n' {
                 passed_first_newline = true;
