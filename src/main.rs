@@ -8,5 +8,5 @@ fn main() {
     
     //Processing code here (use push or push_str to add to buffer contents)
 
-    panic!("{}", input);
+    panic!("{}\n", input);
 }
