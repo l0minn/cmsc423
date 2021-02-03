@@ -4,7 +4,7 @@ use std::fs;
 fn main() {
     
     //read input file contents into a string called contents
-    let input = fs::read_to_string("input").expect("Unable to read file");
+    let input = fs::read("input").expect("Unable to read file");
     let mut output_buffer = String::new();
     
     //Processing code here (use push or push_str to add to buffer contents)
@@ -14,9 +14,9 @@ fn main() {
     let mut genome = Vec::new();
 
     let mut passed_first_newline = false;
-    for c in input.trim().chars() {
+    for c in input {
         if !passed_first_newline {
-            if c == '\n' {
+            if c == 10 {
                 passed_first_newline = true;
                 continue;
             } else {
