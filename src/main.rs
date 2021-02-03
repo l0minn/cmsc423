@@ -35,16 +35,19 @@ fn main() {
 
     /* Finding mathing start positions */
     let mut match_start_indeces = Vec::new();
-    for i in 0..(genome.len() - target.len()) {
-        let mut matches_target = true;
-        for j in 0..target.len() {
-            if target[j] != genome[i + j] {
-                matches_target = false;
-                break;
+
+    if genome.len() >= target.len() {
+        for i in 0..=(genome.len() - target.len()) {
+            let mut matches_target = true;
+            for j in 0..target.len() {
+                if target[j] != genome[i + j] {
+                    matches_target = false;
+                    break;
+                }
             }
-        }
-        if matches_target {
-            match_start_indeces.push(i);
+            if matches_target {
+                match_start_indeces.push(i);
+            }
         }
     }
 
