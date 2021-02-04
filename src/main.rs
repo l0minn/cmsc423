@@ -23,7 +23,9 @@ fn main() {
                 target.push(c);
             }
         } else {
-            genome.push(c);
+            if c != 10 || c != 32 {
+                genome.push(c);
+            }
         }
     }
 
