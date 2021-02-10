@@ -16,6 +16,7 @@ fn main() {
     let mut index = 0;
 
     for c in input.chars() {
+
         prev_skew = running_skew;
         if c == 'C' {
             running_skew -= 1;
@@ -26,13 +27,19 @@ fn main() {
         if prev_skew < running_skew{
             if prev_skew < min_skew {
                 min_locs.clear();
-                min_locs.push(index);
+                if index != 0 {
+                    min_locs.push(index);
+                }             
                 min_skew = prev_skew;
-            } else if prev_skew == min_skew {
+            } else if prev_skew == min_skew && index != 0 {
                 min_locs.push(index);
             }
         }
         index += 1;
+    }
+
+    if min_locs.is_empty() {
+        min_locs.push(1);
     }
 
     for i in min_locs{
