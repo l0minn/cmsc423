@@ -12,6 +12,6 @@ fn main() {
     /* sample code */
 
     //compile buffer into a str and write in output file
-    let output = output_buffer.as_str()
+    let output = output_buffer.as_str();
     fs::write("output", output).expect("Unable to write file");
 }
