@@ -1,5 +1,6 @@
 
 use std::fs;
+use howlong::*;
 
 fn main() {
     
@@ -33,6 +34,9 @@ fn main() {
     // for c in genome {print!("{}", c);}
     // println!("");
 
+    //system clock
+    let timer = HighResolutionTimer::new();
+
     /* Finding matching start positions */
     let mut match_start_indeces = Vec::new();
 
@@ -50,6 +54,9 @@ fn main() {
             }
         }
     }
+
+    //print elapsed time
+    println!("{:?} have passed.", timer.elapsed());
 
     // /* testing start postion search */
     // for i in match_start_indeces {print!("{} ", i);}
