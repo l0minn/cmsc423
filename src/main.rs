@@ -9,7 +9,11 @@ fn main() {
     
     //Processing code here (use push or push_str to add to buffer contents)
     let lines:Vec<&str> = input.split('\n').collect();
-    let sequence = lines[1];
+    let mut sequence = String::new();
+
+    for i in 1..lines.len() {
+        sequence.push_str(lines[i]);
+    }
 
     let mut sp:Vec<usize> = Vec::new();
     sp.push(0);
