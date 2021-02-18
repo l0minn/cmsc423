@@ -33,7 +33,7 @@ fn main() {
     // for c in genome {print!("{}", c);}
     // println!("");
 
-    /* Finding mathing start positions */
+    /* Finding matching start positions */
     let mut match_start_indeces = Vec::new();
 
     if genome.len() >= target.len() {
