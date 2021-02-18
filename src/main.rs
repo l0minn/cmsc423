@@ -38,19 +38,59 @@ fn main() {
     let timer = HighResolutionTimer::new();
 
     /* Finding matching start positions */
+
+    //compiling sp
+    let mut sp:Vec<usize> = Vec::new();
+    sp.push(0);
+
+    for i in 1..target.len() {
+        let mut temp = sp[i - 1];
+        loop {
+            if target[i] == target[temp] {
+                sp.push(temp + 1);
+                break;
+            } else {
+                if temp == 0 {
+                    sp.push(0);
+                    break;
+                } else {
+                    temp = sp[temp - 1];
+                }
+            }
+        }
+    }
+
+    // for i in &sp {
+    //     print!("{} ", i);
+    // } 
+    // println!("");
+
+    //finding start indices
     let mut match_start_indeces = Vec::new();
 
     if genome.len() >= target.len() {
-        for i in 0..=(genome.len() - target.len()) {
-            let mut matches_target = true;
-            for j in 0..target.len() {
-                if target[j] != genome[i + j] {
-                    matches_target = false;
-                    break;
+        let mut i = 0;
+        let mut j = 0;
+        while i < genome.len() {
+
+            // println!(" {} {}", i, j);
+
+            if genome[i] == target[j] {
+                j += 1;
+
+                if j == target.len() {
+                    match_start_indeces.push(i  + 1 - target.len());
+                    j = sp[target.len() - 1];
                 }
-            }
-            if matches_target {
-                match_start_indeces.push(i);
+
+                i += 1;
+            } else {
+                if j != 0 {
+                    j = sp[j - 1];
+                } else {
+                    j = 0;
+                    i += 1;
+                }
             }
         }
     }
