@@ -29,7 +29,7 @@ fn main() {
     }
 
     //compile buffer into a str and write in output file
-    let output = output_buffer.as_str();
+    let output = output_buffer.trim();
     fs::write("output", output).expect("Unable to write file");
 }
 
@@ -39,25 +39,23 @@ fn cyclopeptide_sequencing(spectrum:Vec<usize>) -> Vec<Vec<usize>>{
 
     //Build the candidate peptide table
     let mut running_table = Vec::new();
-    for i in building_blocks.clone() {
-        running_table.push(vec!(i));
-    }
-
-    println!("{}", running_table.len());
-
+    running_table.push(Vec::new());
     let mut candidate_table = Vec::new();
 
     //continue to build and trim table until its empty
     while !running_table.is_empty() {
+        running_table = expand_peptide_table(running_table.clone(), building_blocks.clone());
+        let mut new_running_table = Vec::new();
         for peptide in running_table.clone() {
-            if matches_spectrum(peptide.clone(), spectrum.clone()) {
-                candidate_table.push(peptide);
+            if get_mass(peptide.clone()) == spectrum[spectrum.len()-1] {
+                if matches_spectrum(peptide.clone(), spectrum.clone()) {
+                    candidate_table.push(peptide.clone());
+                } 
+            } else if contained_in_spectrum(peptide.clone(), spectrum.clone()) {
+                new_running_table.push(peptide.clone());
             }
         }
-        running_table = trim_table(expand_peptide_table(running_table.clone(), building_blocks.clone()), spectrum.clone());
-        
-        println!("{}", running_table.len());
-
+        running_table = new_running_table;
     }
 
     candidate_table
@@ -104,18 +102,8 @@ fn expand_peptide_table(table: Vec<Vec<usize>>, building_blocks: Vec<usize>) -> 
     expanded_table
 }
 
-fn trim_table(table:Vec<Vec<usize>>, spectrum:Vec<usize>) -> Vec<Vec<usize>> {
-    let mut trimmed_table = Vec::new();
-    for peptide in table {
-        if contained_in_spectrum(peptide.clone(), spectrum.clone()) {
-            trimmed_table.push(peptide.clone());
-        }
-    }
-    trimmed_table
-}
-
 fn contained_in_spectrum(peptide:Vec<usize>, spectrum:Vec<usize>) -> bool {
-    let p_spectrum = generate_spectrum(peptide);
+    let p_spectrum = generate_linear_spectrum(peptide);
     let mut i = 0;
     let mut j = 0;
     while i < spectrum.len() && j < p_spectrum.len(){
@@ -131,7 +119,7 @@ fn contained_in_spectrum(peptide:Vec<usize>, spectrum:Vec<usize>) -> bool {
     true
 }
 
-fn generate_spectrum(peptide:Vec<usize>) -> Vec<usize>{
+fn generate_spectrum(peptide:Vec<usize>) -> Vec<usize> {
     let mut spectrum = Vec::new();
     //add zero break
     spectrum.push(0);
@@ -170,4 +158,24 @@ fn matches_spectrum(peptide:Vec<usize>, spectrum:Vec<usize>) -> bool {
         }
     }
     true
+}
+
+fn generate_linear_spectrum(peptide:Vec<usize>) -> Vec<usize> {
+    let mut spectrum = Vec::new();
+    //add zero break
+    spectrum.push(0);
+    spectrum.push(get_mass(peptide.clone()));
+    //loop through other breaking possibilities
+    for length in 1..peptide.len() {
+        for i in 0..(peptide.len()-length) {
+            let mut mass = 0;
+            for j in i..(i+length) {
+                mass += peptide[j];
+            }
+            spectrum.push(mass);
+        }
+    }
+
+    spectrum.sort();
+    spectrum
 }
