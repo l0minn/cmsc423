@@ -98,7 +98,7 @@ fn local_alignment(s1:&str, s2:&str, score_grid:HashMap<String, isize>, indel_pe
 
     while i > 0 || j > 0 {
         //reached origin
-        if dp_matrix[i][i] == 0 {
+        if dp_matrix[i][j] == 0 {
             break;
         }
 
