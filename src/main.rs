@@ -87,7 +87,7 @@ fn local_alignment(s1:&str, s2:&str, score_grid:HashMap<String, isize>, indel_pe
     let mut i = 0;
     let mut j = 0;
     for index_i in 1..dp_matrix.len() {
-        for index_j in 1..dp_matrix.len() {
+        for index_j in 1..dp_matrix[index_i].len() {
             if dp_matrix[index_i][index_j] > max_value {
                 max_value = dp_matrix[index_i][index_j];
                 i = index_i;
