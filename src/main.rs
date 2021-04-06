@@ -19,7 +19,7 @@ fn main() {
     let mut output_buffer = String::new();
     
     //Processing code here (use push or push_str to add to buffer contents)
-    output_buffer.push_str(create_suffix_tree(input.as_str()).compile_edges().as_str());
+    output_buffer.push_str(create_suffix_tree(input.trim()).compile_edges().as_str());
 
     //compile buffer into a str and write in output file
     let output = output_buffer.as_str();
