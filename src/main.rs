@@ -39,8 +39,7 @@ fn bwt_decrypt(text:&str) -> String {
             break;
         }
 
-        decrypted_text.push_str(target);
-        decrypted_text.pop();
+        decrypted_text.push_str(target.get(0..1).unwrap());
     }
 
     decrypted_text
