@@ -42,7 +42,7 @@ fn hierarchical_clustering(input:Vec<&str>) -> String {
         //find min distance greater than 0
         let mut x = 0;
         let mut y = 0;
-        let mut min_val = max_val;
+        let mut min_val = max_val+1.0;
 
         for i in 0..size {
             for j in i+1..size {
