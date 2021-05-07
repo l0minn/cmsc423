@@ -53,6 +53,9 @@ fn hierarchical_clustering(input:Vec<&str>) -> String {
                 }
             }
         }
+        if x == 0 && y == 0 {
+            break;
+        }
 
         //update clustering
         let new_cluster = String::from(format!("{} {}\n",axis[x].as_str(), axis[y].as_str()).as_str());
